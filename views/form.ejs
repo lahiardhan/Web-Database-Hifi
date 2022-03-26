@@ -103,6 +103,40 @@
                 </div>
                 <div class="flex-auto w-full mb-1 space-y-2">
                   <label class="font-semibold text-gray-600 py-2">Riwayat Pendidikan</label>
+                  <!-- 3 input field -->
+                  <div class=" border rounded-md p-2">
+                    <div class="md:flex md:flex-row md:space-x-2 w-full">
+                      <div class="w-full flex flex-col">
+                        <input placeholder="Jenjang Sekolah"
+                          class="appearance-none block w-full bg-grey-lighter text-grey-darker text-xs border border-grey-lighter rounded-lg h-10 px-4"
+                          type="text" name="" id="integration_street_address">
+                      </div>
+                      <div class="w-full flex flex-col">
+                        <input placeholder="Nama Sekolah"
+                          class="appearance-none block w-full bg-grey-lighter text-grey-darker text-xs border border-grey-lighter rounded-lg h-10 px-4"
+                          type="text" name="" id="integration_street_address">
+                      </div>
+                      <div class="w-full flex flex-col">
+                        <input placeholder="Tahun Masuk"
+                          class="appearance-none block w-full bg-grey-lighter text-grey-darker text-xs border border-grey-lighter rounded-lg h-10 px-4"
+                          type="text" name="" id="integration_street_address">
+                      </div>
+                      <div class="w-full flex flex-col">
+                        <input placeholder="Tahun Lulus"
+                          class="appearance-none block w-full bg-grey-lighter text-grey-darker text-xs border border-grey-lighter rounded-lg h-10 px-4"
+                          type="text" name="" id="integration_street_address">
+                      </div>
+                    </div>
+                    <div class="text-xs">
+                      <button class="bg-blue-500 p-2 text-xs shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-blue-700 duration-300">
+                        <i class="fa-solid fa-plus"></i>
+                        Tambah
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- 3 input field -->
+
                   <textarea name="pendidikan" id=""
                     class="w-full min-h-[100px] max-h-[300px] h-28 appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg  py-4 px-4 text-xs"
                     placeholder="[Jenjang sekolah] - [Nama sekolah] - [Tahun masuk] - [Tahun lulus] // e.g. SD - SDN 01 Bandung - 2005 - 2011" spellcheck="false"></textarea>
@@ -133,12 +167,16 @@
                 </div>
                 <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
                   <button
-                    class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
+                    class="mb-2 md:mb-0 px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100 duration-300"
                     type="back">
-                    Cancel </button>
+                    Cancel 
+                  </button>
                   <button
-                    class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500"
-                    type="submit">Save</button>
+                    class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-green-500 duration-300"
+                    type="submit"
+                    >
+                    Save
+                  </button>
                 </div>
               </div>
             </div>

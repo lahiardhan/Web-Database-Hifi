@@ -1,4 +1,5 @@
 const res = require("express/lib/response");
+const user = require("./model");
 
 module.exports={
    index: async (req, res) => {

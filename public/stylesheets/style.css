@@ -8,7 +8,10 @@ body {
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover, 
-input:-webkit-autofill:focus {
+input:-webkit-autofill:focus,
+input:-ms-autofill,
+input:-ms-autofill:hover, 
+input:-ms-autofill:focus {
   -webkit-text-fill-color: #000;
   transition: background-color 5000s ease-in-out 0s;
 }
@@ -22,4 +25,9 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+}
+
+input::-ms-reveal,
+input::-ms-clear {
+  display: none;
 }

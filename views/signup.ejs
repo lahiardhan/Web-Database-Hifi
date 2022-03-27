@@ -22,10 +22,13 @@
 
                 <div class="flex flex-col pt-4">
                     <label for="password" class="text-lg">Password</label>
-                    <input type="password" id="password" placeholder="Password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mt-1 leading-tight focus:outline-none focus:shadow-outline" name="password">
+                    <div class="flex flex-row shadow appearance-none border rounded mt-1">
+                        <input type="password" id="password" placeholder="Password" class="w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline appearance-none rounded" name="password">
+                        <button id="seePassButton" class="px-3" type="button"><i id="seePassIcon" class="fa-solid fa-eye"></i></button>
+                    </div>
                 </div>
 
-                <input type="submit" value="Signup" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">
+                <input type="submit" value="Sign Up" class="bg-black text-white font-bold text-lg hover:bg-gray-700 p-2 mt-8">
             </form>
             <div class="text-center pt-12 pb-12">
                 <p>Sudah punya akun? <a href="/login" class="underline font-semibold">Login</a></p>

@@ -33,7 +33,7 @@
                     <label class="font-semibold text-gray-600 py-2">NPM</label>
                     <input placeholder="NPM"
                       class="appearance-none block w-full bg-grey-lighter text-grey-darker border border-grey-lighter rounded-lg h-10 px-4"
-                      type="text" name="npm" id="integration_shop_name" value="<%= user.npm %>">
+                      type="npm" name="npm" id="integration_shop_name" value="<%= user.npm %>">
                     <p class="text-red text-xs hidden">Please fill out this field.</p>
                   </div>
                 </div>
@@ -150,12 +150,16 @@
                 </div>
                 <div class="mt-5 text-right md:space-x-3 md:block flex flex-col-reverse">
                   <button
-                    class="mb-2 md:mb-0 bg-white px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100"
+                    class="mb-2 md:mb-0 px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-gray-600 rounded-full hover:shadow-lg hover:bg-gray-100 duration-300"
                     type="back">
-                    Cancel </button>
+                    Cancel 
+                  </button>
                   <button
-                    class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider text-white rounded-full hover:shadow-lg hover:bg-green-500"
-                    type="submit">Save</button>
+                    class="mb-2 md:mb-0 bg-green-400 px-5 py-2 text-sm shadow-sm font-medium tracking-wider border text-white rounded-full hover:shadow-lg hover:bg-green-500 duration-300"
+                    type="submit"
+                    >
+                    Save
+                  </button>
                 </div>
               </div>
             </div>

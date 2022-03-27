@@ -12,3 +12,14 @@ input:-webkit-autofill:focus {
   -webkit-text-fill-color: #000;
   transition: background-color 5000s ease-in-out 0s;
 }
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}

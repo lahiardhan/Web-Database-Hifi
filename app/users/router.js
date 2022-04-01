@@ -1,10 +1,11 @@
 var express = require('express');
 var router = express.Router();
-const { index, viewForm, viewSignUp } = require('./controller');
+const { index, viewForm, viewProfile, viewDbs } = require('./controller');
 
 /* GET home page. */
 router.get('/', index);
 router.get('/form', viewForm);
-router.get('/signup', viewSignUp);
+router.get('/profile', viewProfile);
+router.get('/dbs', viewDbs);
 
 module.exports = router;

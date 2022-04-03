@@ -1,5 +1,4 @@
-const res = require("express/lib/response");
-const user = require("./model");
+const User = require("./model");
 
 module.exports={
    index: async (req, res) => {
@@ -54,7 +53,9 @@ module.exports={
 
    viewDbs: async (req, res) => {
       try {
-         res.render('database');
+         const user = await User.find();
+
+         res.render('admin/database', {user});
       } catch (err) {
          console.log(err);
       }

@@ -60,15 +60,15 @@
             "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
          }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
          $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": true,
-            "ordering": true,
             "info": false,
             "autoWidth": false,
             "responsive": false,
+            "searching": true,
+            "ordering": true,
+            "paging": true,
             "scrollX": true,
-            "lengthMenu": [ [10, 25, 50, -1], [10, 25, 50, "All"] ]
+            "lengthChange": true,
+            "lengthMenu": [ [10, 25, 50], [10, 25, 50, "All"] ]
          });
          });
       </script>

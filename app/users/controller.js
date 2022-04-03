@@ -54,7 +54,7 @@ module.exports={
 
    viewDbs: async (req, res) => {
       try {
-         res.render('dbs');
+         res.render('database');
       } catch (err) {
          console.log(err);
       }

@@ -5,5 +5,5 @@ dotenv.config();
 module.exports = {
    serviceName : process.env.SERVICE_NAME,
    urlDb : process.env.DATABASE_URL,
-   secret: process.env.SECRET
+   secret: process.env.SECRET,
 }

@@ -1,11 +1,12 @@
- <table id="example2" class="table table-bordered table-striped" style="min-width: 4000px;">
+ <table id="example2" class="table table-bordered table-striped" style="min-width: 4200px;">
   <thead>
   <tr>
-    <th style="min-width: 178px; max-width: 180px;">Nama Lengkap</th>
+    <th style="min-width: 178px; max-width: 180px;">NPM / Nama Lengkap</th>
+    <th style="min-width: 105px; max-width: 108px;">Username</th>
     <th style="min-width: 178px; max-width: 180px;">Tempat, Tanggal Lahir</th>
     <th style="min-width: 78px; max-width: 80px;">Agama</th>
     <th style="min-width: 78px; max-width: 80px;">Gol. Darah</th>
-    <th style="min-width: 103px; max-width: 100px;">No. Handphone</th>
+    <th style="min-width: 110px; max-width: 112px;">No. Handphone</th>
     <th style="min-width: 178px; max-width: 180px;">Email</th>
     <th style="min-width: 268px; max-width: 270px;">Alamat Rumah</th>
     <th style="min-width: 268px; max-width: 270px;">Alamat Kos</th>
@@ -21,10 +22,11 @@
       <% if(users.username !== ""){ %> 
         <tr>
           <td style="min-width: 178px; max-width: 180px;">
-            <%= users.npm %>
+            <%=users.npm %> 
             <br>
             <%=users.nama%> 
           </td>
+          <td style="min-width: 103px; max-width: 105px; text-align: center;"><%= users.username %></td>
           <td style="min-width: 178px; max-width: 180px;"><%= users.ttl %></td>
           <td style="min-width: 78px; max-width: 80px;"><%= users.agama %></td>
           <td style="min-width: 78px; max-width: 80px; text-align: center;"><%= users.goldar %></td>

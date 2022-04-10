@@ -54,7 +54,7 @@ module.exports={
    viewDbs: async (req, res) => {
       try {
          const user = await User.find();
-         const users = await User.countDocuments();
+         const users = await User.countDocuments();   
 
          res.render('admin/database', {
             user,

@@ -56,7 +56,7 @@ module.exports={
          const user = await User.find();
          const users = await User.countDocuments();   
 
-         res.render('admin/database', {
+         res.render('admin/dashboard', {
             user,
             count: {
                users

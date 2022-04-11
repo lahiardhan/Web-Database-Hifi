@@ -1,332 +1,41 @@
-require('dotenv').config();
+const createError = require('http-errors');
 const express = require('express');
-const ejs = require('ejs');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const path = require('path');
-const passport = require('passport');
-const passportLocalMongoose = require('passport-local-mongoose');
-const session = require('express-session');
-const flash = require('connect-flash');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');   // bisa diapus gak nih
+
+// router
+const usersRouter = require('./app/users/router');
+
 const app = express();
 
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static('public'));
-app.use(flash());
+
+app.use(logger('dev'));             // bisa diapus gak nih
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 app.use('/adminlte', express.static(path.join(__dirname, '/node_modules/admin-lte/')));
 
-const MongoStore = require('connect-mongo');
-app.use(session({
-  store: MongoStore.create({mongoUrl: process.env.DATABASE_URL}),
-  secret: process.env.SECRET,
-  resave: false,
-  saveUninitialized: false
-}));
+app.use('/', usersRouter);
 
-app.use(passport.initialize());
-app.use(passport.session());
-
-mongoose.connect(process.env.DATABASE_URL, {useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.set("useCreateIndex", true);
-
-const userSchema = new mongoose.Schema({
-  username: String,
-  password: String,
-  nama: String,
-  npm: Number,
-  ttl: String,
-  tgl: String,
-  agama: String,
-  hp: String,
-  goldar: String,
-  email: String,
-  rumah: String,
-  kos: String,
-  pendidikan: String,
-  panitia: String,
-  organisasi: String,
-  pelatihan: String,
-  prestasi: String,
-  role: String
-}, { timestamp: true });
-
-userSchema.plugin(passportLocalMongoose);
-
-const User = new mongoose.model('User', userSchema);
-
-passport.use(User.createStrategy());
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
-
-app.get('/', function(req, res){
-  var role;
-  var nama;
-  if(req.isAuthenticated()){
-    role = req.user.role;
-    nama = req.user.nama;
-  }
-  res.render('home', {loggedIn: req.isAuthenticated(), user: role, nama: nama});
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  next(createError(404));
 });
 
-app.get('/login', function(req, res){
-  res.render('login', {message: req.flash('error')});
+// error handler
+app.use(function(err, req, res, next) {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
-app.get('/signup', function(req, res){
-  res.render('signup', {message: req.flash('message')});
-});
-
-app.get('/form', function(req, res){
-  if (req.isAuthenticated()){
-    User.findById(req.user.id, function(err, foundUser){
-      if(err){
-        console.log(err);
-      }
-      else{
-        res.render('form', {user: foundUser});
-      }
-    });
-  }
-  else{
-    res.redirect('/login');
-  }
-});
-
-app.get('/forgot', function(req, res){
-  res.render('forgot');
-});
-
-app.get('/logout', function(req, res){
-  req.logout();
-  res.redirect('/');
-});
-
-app.get('/dashboard', function(req, res){
-  if(req.isAuthenticated()){
-    if(req.user.role === "admin"){
-      User.find({"nama": {$ne: null}}, function(err, foundUser){
-        if(err){
-          console.log(err);
-        }
-        else{
-          res.render('admin/database', {user: foundUser});
-        }
-      });
-    }
-    else{
-      res.redirect('/');
-    }
-  }
-  else{
-    res.redirect('/login');
-  }
-});
-
-app.post('/dashboard', function(req, res){
-  if (req.isAuthenticated() && req.user.role === 'admin'){
-    const npm = req.body.search;
-    User.find({'npm': npm}, function(err, foundUser){
-      if (err){
-        console.log(err);
-      }
-      else {
-        res.render('admin/database', {user: foundUser});
-      }
-    })
-  }
-})
-
-app.get('/profile', function(req, res){
-  if(req.isAuthenticated()){
-    var user = req.user
-    if(req.user.nama !== null){
-      res.render('profile', {user: user, message: req.flash('message')});
-    }
-    else{
-      res.redirect('/');
-    }
-  }
-  else{
-    res.redirect('login');
-  }
-});
-
-app.post('/signup', function(req, res){
-  const username = req.body.username;
-  User.findOne({'username': username}, (err, user) => {
-    if (err){
-      console.log(err);
-    }
-    else {
-      if (user){
-        req.flash('message', 'Username sudah digunakan! Coba username lain.');
-        res.redirect('/signup');
-      }
-      else {
-        User.register({username: req.body.username}, req.body.password, function(err, user){
-          if(err){
-            console.log(err);
-            res.redirect('/signup');
-          }
-          else{
-            passport.authenticate('local', {failureFlash: true, failureRedirect: '/signup'})(req, res, function(){
-              res.redirect('/');
-            });
-          }
-        });
-      }
-    }
-  });
-});
-
-app.post('/login', function(req, res){
-  const user = new User({
-    username: req.body.username,
-    password: req.body.password
-  });
-
-  req.login(user, function(err){
-    if(err){
-      console.log(err);
-      res.redirect('/login');
-    }
-    else{
-      passport.authenticate('local', {failureRedirect: '/login', failureFlash: true})(req, res, function(){
-        res.redirect('/');
-      });
-    }
-  });
-});
-
-app.post('/form', function(req, res){
-  const nama = req.body.nama;
-  const npm = req.body.npm;
-  const ttl = req.body.ttl;
-  const tgl = req.body.tgl;
-  const agama = req.body.agama;
-  const goldar = req.body.goldar;
-  const hp = req.body.hp;
-  const email = req.body.email;
-  const rumah = req.body.rumah;
-  const kos = req.body.kos;
-  const pendidikan = req.body.pendidikan;
-  const panitia = req.body.panitia;
-  const organisasi = req.body.organisasi;
-  const pelatihan = req.body.pelatihan;
-  const prestasi = req.body.prestasi;
-
-  User.findById(req.user.id, function(err, foundUser){
-    if (err) {
-      console.log(err);
-    } else {
-      if (foundUser) {
-        foundUser.nama = nama;
-        foundUser.npm = npm;
-        foundUser.ttl = ttl;
-        foundUser.tgl = tgl;
-        foundUser.agama = agama;
-        foundUser.goldar = goldar;
-        foundUser.hp = hp;
-        foundUser.email = email;
-        foundUser.rumah = rumah;
-        foundUser.kos = kos;
-        foundUser.pendidikan = pendidikan;
-        foundUser.panitia = panitia;
-        foundUser.organisasi = organisasi;
-        foundUser.pelatihan = pelatihan;
-        foundUser.prestasi = prestasi;
-        foundUser.save(function(){
-          res.redirect("/");
-        });
-      }
-    }
-  });
-});
-
-app.post('/forgot', function(req, res){
-  const username = req.body.username;
-  const password = req.body.password;
-
-  User.findByUsername(username, function(err, foundUser){
-    if(err){
-      console.log(err);
-    }
-    else{
-      if(foundUser){
-        foundUser.setPassword(password, function(){
-          foundUser.save();
-          res.redirect('/login');
-        });
-      }
-      else{
-        alert('User tidak ditemukan.');
-        res.redirect('/');
-      }
-    }
-  });
-});
-
-app.post('/profile', function(req, res){
-  const unameBaru = req.body.username;
-  const namaBaru = req.body.nama;
-  const npmBaru = req.body.npm;
-  const ttlBaru = req.body.ttl;
-  const tglBaru = req.body.tgl;
-  const agamaBaru = req.body.agama;
-  const goldarBaru = req.body.goldar;
-  const hpBaru = req.body.hp;
-  const emailBaru = req.body.email;
-  const rumahBaru = req.body.rumah;
-  const kosBaru = req.body.kos;
-  const pendidikanBaru = req.body.pendidikan;
-  const panitiaBaru = req.body.panitia;
-  const organisasiBaru = req.body.organisasi;
-  const pelatihanBaru = req.body.pelatihan;
-  const prestasiBaru = req.body.prestasi;
-
-  User.findOne({'username': unameBaru}, (err, user) => {
-    if (err){
-      console.log(err);
-    }
-    else {
-      if (user){
-        req.flash('message', 'username sudah digunakan, coba username lain!');
-        res.redirect('/profile');
-      }
-      else {
-        User.findById(req.user.id, function(err, foundUser){
-          if (err) {
-            console.log(err);
-          } else {
-            if (foundUser) {
-              foundUser.username = unameBaru;
-              foundUser.nama = namaBaru;
-              foundUser.npm = npmBaru;
-              foundUser.ttl = ttlBaru;
-              foundUser.tgl = tglBaru;
-              foundUser.agama = agamaBaru;
-              foundUser.goldar = goldarBaru;
-              foundUser.hp = hpBaru;
-              foundUser.email = emailBaru;
-              foundUser.rumah = rumahBaru;
-              foundUser.kos = kosBaru;
-              foundUser.pendidikan = pendidikanBaru;
-              foundUser.panitia = panitiaBaru;
-              foundUser.organisasi = organisasiBaru;
-              foundUser.pelatihan = pelatihanBaru;
-              foundUser.prestasi = prestasiBaru;
-              foundUser.save(function(){
-                res.redirect("/");
-              });
-            }
-          }
-        });
-      }
-    }
-  });
-});
-
-app.listen(process.env.PORT || 3000, function(){
-  console.log("3000 ready");
-});
+module.exports = app;

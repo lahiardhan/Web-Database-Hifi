@@ -51,7 +51,7 @@ module.exports={
       }
    },
 
-   viewDbs: async (req, res) => {
+   viewDashboard: async (req, res) => {
       try {
          const user = await User.find();
          const users = await User.countDocuments();   
@@ -79,6 +79,6 @@ module.exports={
    
    actionForgot: async(req, res) => {},
    
-   actionDbs: async(req, res) => {},
+   actionDashboard: async(req, res) => {},
 
 }

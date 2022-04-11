@@ -1,4 +1,5 @@
 const User = require("./model");
+const flash = require('connect-flash');
 
 module.exports={
    index: async (req, res) => {
@@ -53,13 +54,13 @@ module.exports={
 
    viewDashboard: async (req, res) => {
       try {
-         const user = await User.find();
-         const users = await User.countDocuments();   
+         const users = await User.find();
+         const user = await User.countDocuments();   
 
          res.render('admin/dashboard', {
-            user,
+            users,
             count: {
-               users
+               user
             }
          });
       } catch (err) {
@@ -79,8 +80,35 @@ module.exports={
    
    actionForgot: async(req, res) => {},
    
-   deleteDashboard: async(req, res) => {},
+   viewEditDashboard: async(req, res) => {
+      try {
+         const { id } = req.params;
+         const user = await User.findOne({ _id: id });
+
+         res.render('admin/edit', {
+            user,
+         })
+      } catch (err) {
+         req.flash('alertMessage', `${err.message}`);
+         req.flash('alertStatus', 'danger');
+         res.redirect('/dashboard');   
+      }
+   },
    
-   editDashboard: async(req, res) => {},
+   deleteDashboard: async(req, res) => {
+      try {
+         const { id } = req.params;
+         await User.findByIdAndRemove({
+            _id: id
+         });
+
+         req.flash('alertMessage', 'Satu Data Warhim Berhasil Dihapus!');
+         req.flash('alertStatus', 'success');
+
+         res.redirect('/dashboard');      
+      } catch (err) {
+         res.redirect('/dashboard');      
+      }
+   },
 
 }

@@ -1,0 +1,70 @@
+<%- include ./partials/header.ejs %>
+<%- include ./partials/navbar.ejs %>
+<%- include ./partials/sidebar.ejs %>
+
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+   <!-- Content Header (Page header) -->
+   <div class="content-header">
+     <div class="container-fluid">
+       <div class="row mb-2">
+         <div class="col-sm-6">
+           <h1 class="m-0">Dashboard</h1>
+         </div>
+       </div><!-- /.row -->
+     </div><!-- /.container-fluid -->
+   </div>
+
+   <!-- Content Wrapper. Contains page content -->
+   <section class="content">
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-12">
+               <!-- Main Content -->
+               <div class="card card-primary">
+                  <div class="card-header">
+                     <h3 class="card-title">Edit Data <%= user.npm %> - <%= user.nama %></h3>
+                  </div> <!-- /.card-header -->
+                  
+                  <!-- form start -->
+                  <form>
+                  <div class="card-body">
+                     <div class="form-group">
+                        <label for="exampleInputEmail1">Ganti Username</label>
+                        <input placeholder="Username" type="text" class="form-control form-control-sm" id="integration_shop_name" value="<%= user.username %>">
+                     </div>
+                     <div class="form-group">
+                        <label for="exampleInputPassword1">Nama Lengkap</label>
+                        <input placeholder="Nama Lengkap" type="text" class="form-control form-control-sm" id="integration_shop_name" value="<%= user.nama %>">
+                     </div>
+                     <div class="form-group">
+                        <label for="exampleInputFile">File input</label>
+                        <div class="input-group">
+                        <div class="custom-file">
+                           <input type="file" class="custom-file-input" id="exampleInputFile">
+                           <label class="custom-file-label" for="exampleInputFile">Choose file</label>
+                        </div>
+                        <div class="input-group-append">
+                           <span class="input-group-text">Upload</span>
+                        </div>
+                        </div>
+                     </div>
+                     <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                        <label class="form-check-label" for="exampleCheck1">Check me out</label>
+                     </div>
+                  </div> <!-- /.card-body -->
+               
+                  <div class="card-footer">
+                     <button type="submit" class="btn btn-primary">Submit</button>
+                  </div>
+                  </form>
+               </div> <!-- /.Main Content -->
+            </div> <!-- /.col -->
+          </div> <!-- /.row -->
+        </div> <!-- /.container-fluid -->
+      </section> <!-- /.content wrapper -->
+</div>
+
+<%- include ./partials/footer.ejs %>
+<%- include ./partials/script.ejs %>

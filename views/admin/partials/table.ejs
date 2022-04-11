@@ -1,6 +1,7 @@
  <table id="example2" class="table table-bordered table-striped" style="min-width: 4200px;">
   <thead>
   <tr>
+    <th></th>
     <th style="min-width: 178px; max-width: 180px;">NPM / Nama Lengkap</th>
     <th style="min-width: 105px; max-width: 108px;">Username</th>
     <th style="min-width: 178px; max-width: 180px;">Tempat, Tanggal Lahir</th>
@@ -18,37 +19,48 @@
   </tr>
   </thead>
   <tbody>
-    <% user.forEach(function(users){ %>
+    <% for(let i = 0; i< users.length; i++) { %>
         <tr>
+          <td>
+            <form action="/dashboard/delete/<%= users[i]._id %>?_method=DELETE" method="POST">
+              <a href="/dashboard/edit/<%= users[i]._id %>" class="btn btn-info btn-sm">
+                <i class="fas fa-pencil-alt"></i>
+              </a>
+              <br>
+              <button class="btn btn-danger btn-sm">
+                <i class="fas fa-trash"></i>
+              </button>
+            </form>
+          </td>
           <td style="min-width: 178px; max-width: 180px;">
-            <%=users.npm %> 
+            <%=users[i].npm %> 
             <br>
-            <%=users.nama%> 
+            <%=users[i].nama%> 
           </td>
-          <td style="min-width: 103px; max-width: 105px; text-align: center;"><%= users.username %></td>
-          <td style="min-width: 178px; max-width: 180px;"><%= users.ttl %></td>
-          <td style="min-width: 78px; max-width: 80px;"><%= users.agama %></td>
-          <td style="min-width: 78px; max-width: 80px; text-align: center;"><%= users.goldar %></td>
-          <td style="min-width: 103px; max-width: 100px;"><%= users.hp %></td>
-          <td style="min-width: 178px; max-width: 180px;"><%= users.email %></td>
-          <td style="min-width: 268px; max-width: 270px;"><%= users.rumah %></td>
-          <td style="min-width: 268px; max-width: 270px;"><%= users.kos %></td>
+          <td style="min-width: 103px; max-width: 105px; text-align: center;"><%= users[i].username %></td>
+          <td style="min-width: 178px; max-width: 180px;"><%= users[i].ttl %></td>
+          <td style="min-width: 78px; max-width: 80px;"><%= users[i].agama %></td>
+          <td style="min-width: 78px; max-width: 80px; text-align: center;"><%= users[i].goldar %></td>
+          <td style="min-width: 103px; max-width: 100px;"><%= users[i].hp %></td>
+          <td style="min-width: 178px; max-width: 180px;"><%= users[i].email %></td>
+          <td style="min-width: 268px; max-width: 270px;"><%= users[i].rumah %></td>
+          <td style="min-width: 268px; max-width: 270px;"><%= users[i].kos %></td>
           <td>
-            <%= users.pendidikan %>
-          </td>
-          <td>
-            <%= users.panitia %>
+            <%= users[i].pendidikan %>
           </td>
           <td>
-            <%= users.organisasi %>
+            <%= users[i].panitia %>
           </td>
           <td>
-            <%= users.pelatihan %>
+            <%= users[i].organisasi %>
           </td>
           <td>
-            <%= users.prestasi %>
+            <%= users[i].pelatihan %>
+          </td>
+          <td>
+            <%= users[i].prestasi %>
           </td>
         </tr>
-    <% }) %>
+    <% } %>
   </tbody>
 </table>

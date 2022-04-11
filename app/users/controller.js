@@ -1,5 +1,4 @@
 const User = require("./model");
-const flash = require('connect-flash');
 
 module.exports={
    index: async (req, res) => {
@@ -54,17 +53,24 @@ module.exports={
 
    viewDashboard: async (req, res) => {
       try {
+         const alertMessage = req.flash('alertMessage');
+         const alertStatus = req.flash('alertStatus');
+
+         const alert = { message: alertMessage, status: alertStatus }
          const users = await User.find();
          const user = await User.countDocuments();   
 
          res.render('admin/dashboard', {
             users,
+            alert,
             count: {
                user
             }
          });
       } catch (err) {
-         console.log(err);
+         req.flash('alertMessage', `${err.message}`);
+         req.flash('alertStatus', 'danger');
+         res.redirect('/dashboard');
       }
    },
 
@@ -107,6 +113,8 @@ module.exports={
 
          res.redirect('/dashboard');      
       } catch (err) {
+         req.flash('alertMessage', `${err.message}`);
+         req.flash('alertStatus', 'danger');
          res.redirect('/dashboard');      
       }
    },

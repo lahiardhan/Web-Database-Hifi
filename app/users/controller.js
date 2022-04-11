@@ -79,6 +79,8 @@ module.exports={
    
    actionForgot: async(req, res) => {},
    
-   actionDashboard: async(req, res) => {},
+   deleteDashboard: async(req, res) => {},
+   
+   editDashboard: async(req, res) => {},
 
 }

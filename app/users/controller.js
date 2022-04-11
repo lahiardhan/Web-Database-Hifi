@@ -108,7 +108,7 @@ module.exports={
             _id: id
          });
 
-         req.flash('alertMessage', 'Satu Data Warhim Berhasil Dihapus!');
+         req.flash('alertMessage', 'Satu Data User Berhasil Dihapus!');
          req.flash('alertStatus', 'success');
 
          res.redirect('/dashboard');      

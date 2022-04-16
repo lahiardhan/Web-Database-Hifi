@@ -101,6 +101,44 @@ module.exports={
       }
    },
    
+   actionEditDashboard: async (req, res) => {
+      try {
+         const { id } = req.params;
+         const payload = {
+            username: req.body.username,
+            password: req.body.password,
+            nama: req.body.nama,
+            npm: req.body.npm,
+            ttl: req.body.ttl,
+            tgl: req.body.tgl,
+            agama: req.body.agama,
+            hp: req.body.hp,
+            goldar: req.body.goldar,
+            email: req.body.email,
+            rumah: req.body.rumah,
+            kos: req.body.kos,
+            pendidikan: req.body.pendidikan,
+            panitia: req.body.panitia,
+            organisasi: req.body.organisasi,
+            pelatihan: req.body.pelatihan,
+            prestasi: req.body.prestasi,
+         };
+
+         await User.findOneAndUpdate({
+            _id: id
+         }, { ...payload });
+
+         req.flash('alertMessage', 'Data User Berhasil Diperbarui!');
+         req.flash('alertStatus', 'success');
+
+         res.redirect('/dashboard');
+      } catch (err) {
+         req.flash('alertMessage', `${err.message}`);
+         req.flash('alertStatus', 'danger');
+         res.redirect('/dashboard');   
+      }
+   },
+
    deleteDashboard: async(req, res) => {
       try {
          const { id } = req.params;
@@ -108,7 +146,7 @@ module.exports={
             _id: id
          });
 
-         req.flash('alertMessage', 'Satu Data User Berhasil Dihapus!');
+         req.flash('alertMessage', 'Data User Berhasil Dihapus!');
          req.flash('alertStatus', 'success');
 
          res.redirect('/dashboard');      

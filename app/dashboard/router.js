@@ -1,9 +1,10 @@
 var express = require('express');
+const { viewDashboard, viewEdit, actionEdit, deleteDashboard } = require('./controller');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', viewDashboard);
+router.get('/edit/:id', viewEdit);
+router.put('/edit/:id', actionEdit);
+router.delete('/delete/:id', deleteDashboard);
 
 module.exports = router;

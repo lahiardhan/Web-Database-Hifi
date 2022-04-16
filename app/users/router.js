@@ -9,9 +9,5 @@ router.get('/signup', viewSignUp);
 router.get('/form', viewForm);
 router.get('/profile', viewProfile);
 router.get('/forgot', viewForgot);
-router.get('/dashboard', viewDashboard);
-router.get('/dashboard/edit/:id', viewEditDashboard);
-router.put('/dashboard/edit/:id', actionEditDashboard);
-router.delete('/dashboard/delete/:id', deleteDashboard);
 
 module.exports = router;

@@ -9,6 +9,7 @@ const methodOverride = require('method-override');
 
 // router
 const usersRouter = require('./app/users/router');
+const dashboardRouter = require('./app/dashboard/router');
 
 const app = express();
 
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/adminlte', express.static(path.join(__dirname, '/node_modules/admin-lte/')));
 
 app.use('/', usersRouter);
+app.use('/dashboard', dashboardRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

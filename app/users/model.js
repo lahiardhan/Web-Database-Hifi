@@ -20,6 +20,7 @@ let userSchema = mongoose.Schema({
 	pelatihan: String,
 	prestasi: String,
 	role: String,
+	time: String,
 });
 
 userSchema.plugin(passportLocalMongoose);

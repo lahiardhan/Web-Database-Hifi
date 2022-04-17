@@ -1,7 +1,9 @@
- <table id="example2" class="table table-bordered table-striped" style="min-width: 4200px;">
+ <table id="example2" class="table table-bordered table-striped" style="min-width: 4400px;">
   <thead>
   <tr>
+    <th>No</th>
     <th></th>
+    <th style="min-width: 178px; max-width: 180px;">Updated at</th>
     <th style="min-width: 178px; max-width: 180px;">NPM / Nama Lengkap</th>
     <th style="min-width: 105px; max-width: 108px;">Username</th>
     <th style="min-width: 178px; max-width: 180px;">Tempat, Tanggal Lahir</th>
@@ -21,6 +23,7 @@
   <tbody>
     <% for(let i = 0; i< users.length; i++) { %>
         <tr>
+          <td style="text-align: center;"><%= i+1 %></td>
           <td>
             <form action="/dashboard/delete/<%= users[i]._id %>?_method=DELETE" method="POST">
               <a href="/dashboard/edit/<%= users[i]._id %>" class="btn btn-info btn-sm">
@@ -32,8 +35,9 @@
               </button>
             </form>
           </td>
+          <td  style="min-width: 178px; max-width: 180px;"><%=users[i].time%></td>
           <td style="min-width: 178px; max-width: 180px;">
-            <%=users[i].npm %> 
+            <%=users[i].npm %> /
             <br>
             <%=users[i].nama%> 
           </td>
@@ -45,21 +49,11 @@
           <td style="min-width: 178px; max-width: 180px;"><%= users[i].email %></td>
           <td style="min-width: 268px; max-width: 270px;"><%= users[i].rumah %></td>
           <td style="min-width: 268px; max-width: 270px;"><%= users[i].kos %></td>
-          <td>
-            <%= users[i].pendidikan %>
-          </td>
-          <td>
-            <%= users[i].panitia %>
-          </td>
-          <td>
-            <%= users[i].organisasi %>
-          </td>
-          <td>
-            <%= users[i].pelatihan %>
-          </td>
-          <td>
-            <%= users[i].prestasi %>
-          </td>
+          <td><%= users[i].pendidikan %></td>
+          <td><%= users[i].panitia %></td>
+          <td><%= users[i].organisasi %></td>
+          <td><%= users[i].pelatihan %></td>
+          <td><%= users[i].prestasi %></td>
         </tr>
     <% } %>
   </tbody>

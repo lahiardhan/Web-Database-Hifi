@@ -1,4 +1,5 @@
 const User = require('../users/model');
+const moment = require('moment');
 
 module.exports = {
    viewDashboard: async (req, res) => {
@@ -7,7 +8,7 @@ module.exports = {
          const alertStatus = req.flash('alertStatus');
 
          const alert = { message: alertMessage, status: alertStatus }
-         const users = await User.find();
+         const users = await User.find().sort({ 'time': -1});
          const user = await User.countDocuments();   
 
          res.render('admin/dashboard', {
@@ -60,6 +61,7 @@ module.exports = {
             organisasi: req.body.organisasi,
             pelatihan: req.body.pelatihan,
             prestasi: req.body.prestasi,
+            time: moment(Date()).format("Do-MM-YYYY, H:mm:ss"),
          };
 
          await User.findOneAndUpdate({

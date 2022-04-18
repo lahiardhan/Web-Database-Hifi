@@ -11,22 +11,6 @@ module.exports={
       }
    },
 
-   viewLogIn: async (req, res) => {
-      try {
-         res.render('login');
-      } catch (err) {
-         console.log(err);
-      }
-   },
-   
-   viewSignUp: async (req, res) => {
-      try {
-         res.render('signup');
-      } catch (err) {
-         console.log(err);
-      }
-   },
-
    viewForm: async (req, res) => {
       try {
          res.render('form');
@@ -50,12 +34,6 @@ module.exports={
          console.log(err);
       }
    },
-
-   actionLogOut: async (req, res) => {},
-
-   actionLogIn: async(req, res) => {},
-
-   actionSignUp: async(req, res) => {},
 
    actionForm: async(req, res) => {},
 

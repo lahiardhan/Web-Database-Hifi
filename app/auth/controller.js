@@ -20,7 +20,6 @@ module.exports = {
             message: req.flash('alertMessage'),
             unameBlank: req.flash('unameMessage'),
             emailBlank: req.flash('emailMessage'),
-            noHpBlank: req.flash('noHpMessage'),
             passBlank: req.flash('passMessage'),
             status: req.flash('alertStatus')
          });
@@ -33,17 +32,13 @@ module.exports = {
 
    actionSignUp: async(req, res, next) => {
       try {
-         const { username, email, hp, password } = req.body;
+         const { username, email, password } = req.body;
          if(username === "" | undefined) {
             req.flash('unameMessage', 'Username Harus Diisi!');
             req.flash('alertStatus', 'danger');
             res.redirect('/auth/signup');
          } else if(email === "" | undefined) {
             req.flash('emailMessage', 'Email Harus Diisi!');
-            req.flash('alertStatus', 'danger');
-            res.redirect('/auth/signup');
-         } else if(hp === "" | undefined) {
-            req.flash('noHpMessage', 'No Handphone Harus Diisi!');
             req.flash('alertStatus', 'danger');
             res.redirect('/auth/signup');
          } else if(password === "" | undefined) {
@@ -57,7 +52,7 @@ module.exports = {
                   req.flash('alertStatus', 'danger');
                   res.redirect('/auth/signup');
                } else {
-                  let user = new User({username, email, hp, password});
+                  let user = new User({username, email, password});
                   user.save();
 
                   req.flash('alertMessage', 'Berhasil membuat akun! Silahkan login kembali.')

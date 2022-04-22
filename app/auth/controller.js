@@ -34,7 +34,7 @@ module.exports = {
       try {
          const { username, email, password } = req.body;
          if(username === "" | undefined) {
-            req.flash('unameMessage', 'Username Harus Diisi!');
+            req.flash('unameMessage', 'Username Harus Diisi! (Isi menggunakan NPM Anda)');
             req.flash('alertStatus', 'danger');
             res.redirect('/auth/signup');
          } else if(email === "" | undefined) {

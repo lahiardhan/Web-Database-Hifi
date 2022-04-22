@@ -14,11 +14,11 @@
             <p class="text-center text-red-500">
                 <%= message %>
             </p>
-            <form class="flex flex-col pt-3 md:pt-8" action="/auth/signup" method="post">
+            <form class="flex flex-col pt-3 md:pt-8" action="/auth/signup" method="post" autocomplete="off">
                 <div class="flex flex-col pt-4 justify-between">
                     <label for="username" class="text-lg">
                         Username
-                        <span class="md:text-xs text-red-500">
+                        <span class="md:text-sm text-red-500 float-right">
                             <%= unameBlank %>
                         </span>
                     </label>
@@ -29,12 +29,12 @@
                         name="username" 
                         placeholder="Username"
                         autocomplete="off"
-                    >
+                    />
                 </div>
                 <div class="flex flex-col pt-4">
                     <label for="email" class="text-lg">
                         Email
-                        <span class="md:text-xs text-red-500">
+                        <span class="md:text-sm text-red-500 float-right">
                             <%= emailBlank %>
                         </span>
                     </label>
@@ -50,7 +50,7 @@
                 <div class="flex flex-col pt-4">
                     <label for="password" class="text-lg">
                         Password
-                        <span class="md:text-xs text-red-500">
+                        <span class="md:text-sm text-red-500 float-right">
                             <%= passBlank %>
                         </span>
                     </label>
@@ -61,6 +61,7 @@
                             id="password" 
                             name="password"
                             placeholder="Password"
+                            autocomplete="new-password"
                         >
                         <button id="seePassButton" class="px-3" type="button"><i id="seePassIcon" class="fa-solid fa-eye"></i></button>
                     </div>

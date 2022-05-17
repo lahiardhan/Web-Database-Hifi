@@ -1,5 +1,6 @@
 const User = require("./model");
 const bcrypt = require("bcryptjs");
+const moment = require('moment');
 
 module.exports={
    index: async (req, res) => {
@@ -8,6 +9,8 @@ module.exports={
          if(req.isAuthenticated()){
             role = req.user.role;
             nama = req.user.nama;
+            message: req.flash('updateMessage');
+            status: req.flash('alertStatus');
          }
          res.render('home', {
             loggedIn: req.isAuthenticated(), 
@@ -39,7 +42,7 @@ module.exports={
          const user = req.user
          if(req.user.nama !== null){
             res.render('profile', {
-               user: user, 
+               user, 
                message: req.flash('alertMessage'),
                status: req.flash('alertStatus')
             });
@@ -54,8 +57,69 @@ module.exports={
 
    actionForm: async(req, res) => {},
 
-   actionProfile: async(req, res) => {},
+   actionProfile: async(req, res) => {
+      try {
+         const unameLama = req.user.username;
+         const unameBaru = req.body.username;
+         const payload = {
+            username: unameBaru,
+            password: req.body.password,
+            nama: req.body.nama,
+            npm: req.body.npm,
+            ttl: req.body.ttl,
+            tgl: req.body.tgl,
+            agama: req.body.agama,
+            hp: req.body.hp,
+            goldar: req.body.goldar,
+            email: req.body.email,
+            rumah: req.body.rumah,
+            kos: req.body.kos,
+            pendidikan: req.body.pendidikan,
+            panitia: req.body.panitia,
+            organisasi: req.body.organisasi,
+            pelatihan: req.body.pelatihan,
+            prestasi: req.body.prestasi,
+            time: moment(Date()).format("Do-MM-YYYY, H:mm:ss"),
+         };
+
+         if(unameBaru === unameLama) {
+            await User.findOneAndUpdate({
+               _id: req.user.id
+            }, { ...payload });
+
+            req.flash('updateMessage', 'Data Berhasil Diperbarui!');
+            req.flash('alertStatus', 'success');
+            res.redirect('/');
+         } else {
+            User.findOne({'username': unameBaru}, (err, user) => {
+               if (err){
+                  console.log(err);
+               }
+               else {
+                  if (user){
+                     req.flash('alertMessage', 'username sudah digunakan, coba username lain!');
+                     req.flash('alertStatus', 'danger');
+                     res.redirect('/profile');
+                  }
+                  else {
+                     User.findOneAndUpdate({
+                        _id: req.user.id
+                     }, { ...payload });
+         
+                     req.flash('updateMessage', 'Data Berhasil Diperbarui!');
+                     req.flash('alertStatus', 'success');
+                     res.redirect('/');
+                  }
+               }
+            });
+         }
    
+      } catch (err) {
+         req.flash('alertMessage', `${err.message}`);
+         req.flash('alertStatus', 'danger');
+         res.redirect('/'); 
+      }
+   },
    
    viewForgot: async (req, res) => {
 		try {

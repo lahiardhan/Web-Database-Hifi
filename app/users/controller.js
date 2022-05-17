@@ -21,7 +21,14 @@ module.exports={
 
    viewForm: async (req, res) => {
       try {
-         res.render('form');
+         User.findById(req.user.id, function(err, foundUser){
+            if(err){
+              console.log(err);
+            }
+            else{
+              res.render('form', {user: foundUser});
+            }
+          });
       } catch (err) {
          console.log(err);
       }
@@ -29,7 +36,17 @@ module.exports={
    
    viewProfile: async (req, res) => {
       try {
-         res.render('profile');
+         const user = req.user
+         if(req.user.nama !== null){
+            res.render('profile', {
+               user: user, 
+               message: req.flash('alertMessage'),
+               status: req.flash('alertStatus')
+            });
+         }
+         else{
+            res.redirect('/');
+         }
       } catch (err) {
          console.log(err);
       }

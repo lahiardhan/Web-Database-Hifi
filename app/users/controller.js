@@ -1,4 +1,5 @@
 const User = require("./model");
+const bcrypt = require("bcryptjs");
 
 module.exports={
    index: async (req, res) => {

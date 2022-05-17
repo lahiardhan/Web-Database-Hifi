@@ -10,9 +10,7 @@ module.exports = {
             status: req.flash('alertStatus')
          });
       } catch (err) {
-         req.flash('alertMessage', `${err.message}`);
-         req.flash('alertStatus', 'danger');
-         res.redirect('/auth/signup');
+         console.log(err);
       }
    },
 
@@ -35,9 +33,7 @@ module.exports = {
             password2: req.flash('password2')
          });
       } catch (err) {
-         req.flash('alertMessage', `${err.message}`);
-         req.flash('alertStatus', 'danger');
-         res.redirect('/auth/signup');
+         console.log(err);
       }
    },
 
@@ -99,7 +95,7 @@ module.exports = {
          res.redirect('/auth/signup');
       }
    },
-   
+
    actionLogOut: async (req, res) => {
       req.logout();
 		req.flash("alertMessage", "Logout berhasil!");

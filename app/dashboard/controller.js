@@ -4,10 +4,10 @@ const moment = require('moment');
 module.exports = {
    viewDashboard: async (req, res) => {
       try {
-         const alertMessage = req.flash('alertMessage');
-         const alertStatus = req.flash('alertStatus');
-
-         const alert = { message: alertMessage, status: alertStatus }
+         const alert = { 
+            message: req.flash('alertMessage'), 
+            status: req.flash('alertStatus') 
+         }
          const users = await User.find().sort({ 'time': -1});
          const user = await User.countDocuments();   
 

@@ -8,6 +8,9 @@ const session = require('express-session');
 const methodOverride = require('method-override');
 const passport = require('passport');
 
+// passport config
+require("./config/passport")(passport);
+
 // router
 const usersRouter = require('./app/users/router');
 const dashboardRouter = require('./app/dashboard/router');
@@ -29,6 +32,12 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(methodOverride('_method'));
+
+app.use((req,res,next)=> {
+  res.locals.error_msg = req.flash('error_msg');
+  res.locals.error  = req.flash('error');
+next();
+})
 
 app.use(logger('dev'));             // bisa diapus gak nih
 app.use(express.json());

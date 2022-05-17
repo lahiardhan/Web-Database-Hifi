@@ -12,6 +12,7 @@ module.exports = {
          const user = await User.countDocuments();   
 
          res.render('admin/dashboard', {
+            nama: req.user.nama,
             users,
             alert,
             count: {

@@ -16,7 +16,7 @@ module.exports = {
 
    actionLogIn: async (req, res, next) => {
 		passport.authenticate("local", {
-			successRedirect: "/dashboard",
+			successRedirect: "/",
 			failureRedirect: "/auth/login",
 			failureFlash: true,
 		})(req, res, next);

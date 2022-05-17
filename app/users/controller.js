@@ -4,8 +4,15 @@ const bcrypt = require("bcryptjs");
 module.exports={
    index: async (req, res) => {
       try {
+         let role, nama
+         if(req.isAuthenticated()){
+            role = req.user.role;
+            nama = req.user.nama;
+         }
          res.render('home', {
-            title: "datahifi"
+            loggedIn: req.isAuthenticated(), 
+            user: role, 
+            nama: nama
          });
       } catch (err) {
          console.log(err);

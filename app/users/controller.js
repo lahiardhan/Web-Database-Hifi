@@ -79,7 +79,7 @@ module.exports={
             organisasi: req.body.organisasi,
             pelatihan: req.body.pelatihan,
             prestasi: req.body.prestasi,
-            time: moment(Date()).format("Do-MM-YYYY, H:mm:ss"),
+            time: moment(Date()).format("MM-Do-YYYY, H:mm:ss"),
          };
 
          if(unameBaru === unameLama) {

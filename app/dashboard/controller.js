@@ -32,6 +32,7 @@ module.exports = {
          const user = await User.findOne({ _id: id });
 
          res.render('admin/edit', {
+            nama: req.user.nama,
             user,
          })
       } catch (err) {

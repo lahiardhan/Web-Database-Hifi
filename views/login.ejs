@@ -15,9 +15,7 @@
                     <p>Bagi yang sudah pernah mengisi database pada google form dapat langsung login dengan username menggunakan NPM anda dan buat password baru di halaman ubah password di bawah atau klik <a href="/forgot" class="font-bold">di sini.</a></p>
                   </div>
                 <p class="text-center text-3xl">Login</p>
-                <p class="text-center text-<%= status %>">
-                    <%= message %>
-                </p>
+                <%- include ./partials/message.ejs %>
                 <form class="flex flex-col pt-3 md:pt-8" action="/auth/login" method="post">
                     <div class="flex flex-col pt-4">
                         <label for="email" class="text-lg">Username</label>

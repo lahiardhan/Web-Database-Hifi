@@ -1,4 +1,6 @@
 const User = require('../users/model');
+const bcrypt = require('bcryptjs');
+const passport = require("passport");
 
 module.exports = {
    viewLogIn: async (req, res) => {
@@ -8,11 +10,19 @@ module.exports = {
             status: req.flash('alertStatus')
          });
       } catch (err) {
-         console.log(err);
+         req.flash('alertMessage', `${err.message}`);
+         req.flash('alertStatus', 'danger');
+         res.redirect('/auth/signup');
       }
    },
 
-   actionLogIn: async(req, res) => {},
+   actionLogIn: async (req, res, next) => {
+		passport.authenticate("local", {
+			successRedirect: "/dashboard",
+			failureRedirect: "/auth/login",
+			failureFlash: true,
+		})(req, res, next);
+	},
    
    viewSignUp: async (req, res) => {
       try {
@@ -21,57 +31,79 @@ module.exports = {
             unameBlank: req.flash('unameMessage'),
             emailBlank: req.flash('emailMessage'),
             passBlank: req.flash('passMessage'),
-            status: req.flash('alertStatus')
+            status: req.flash('alertStatus'),
+            password2: req.flash('password2')
          });
       } catch (err) {
          req.flash('alertMessage', `${err.message}`);
          req.flash('alertStatus', 'danger');
-         res.redirect('/signup');
+         res.redirect('/auth/signup');
       }
    },
 
    actionSignUp: async(req, res, next) => {
       try {
-         const { username, email, password } = req.body;
-         if(username === "" | undefined) {
-            req.flash('unameMessage', 'Username Harus Diisi! (Isi menggunakan NPM Anda)');
+         const { username, email, password, password2 } = req.body;
+         if(username === "" || undefined) {
+            req.flash('unameMessage', 'Username Harus Diisi!');
             req.flash('alertStatus', 'danger');
             res.redirect('/auth/signup');
-         } else if(email === "" | undefined) {
+         } else if(email === "" || undefined) {
             req.flash('emailMessage', 'Email Harus Diisi!');
             req.flash('alertStatus', 'danger');
             res.redirect('/auth/signup');
-         } else if(password === "" | undefined) {
+         } else if(password === "" || undefined) {
             req.flash('passMessage', 'Password Harus Diisi!');
+            req.flash('alertStatus', 'danger');
+            res.redirect('/auth/signup');
+         } else if(password !== password2) {
+            req.flash('password2', "Passwords doesn't match");
             req.flash('alertStatus', 'danger');
             res.redirect('/auth/signup');
          } else {
             User.findOne({ username: username }).then((user) => {
                if(user) {
-                  req.flash('alertMessage', 'Username sudah digunakan! Coba username lain.');
+                  req.flash('alertMessage', 'Username sudah digunakan!');
                   req.flash('alertStatus', 'danger');
                   res.redirect('/auth/signup');
                } else {
-                  let user = new User({username, email, password});
-                  user.save();
+                  let newUser = new User({
+                     username : username,
+                     email : email,
+                     password : password
+                  });
 
-                  req.flash('alertMessage', 'Berhasil membuat akun! Silahkan login kembali.')
-                  req.flash('alertStatus', 'success')
-                  res.redirect('/auth/login');
+                  // hash password
+                  bcrypt.genSalt(10, (err, salt) => {
+                     bcrypt.hash(newUser.password, salt, (err, hash) => {
+                        if(err) throw(err);
+                        // save pass to hash
+                        newUser.password = hash;
+                        // save user
+                        newUser.save().then((value) => {
+                           console.log(value);
+                           // delete user._doc.password
+                           req.flash('alertMessage', 'Berhasil membuat akun! Silahkan login kembali');
+                           req.flash('alertStatus', 'success')
+                           res.redirect('/auth/login');
+                        })
+                        .catch(value=> console.log(value));
+                     });
+                  });
                }
             })
          }
       } catch (err) {
-         if(err && err.name === 'ValidationError') {
-            return res.status(422).json({
-               error: 1,
-               message: err.message,
-               fields: err.errors
-            })
-         }
-         next();
+         req.flash('alertMessage', `${err.message}`);
+         req.flash('alertStatus', 'danger');
+         res.redirect('/auth/signup');
       }
    },
    
-   actionLogOut: async (req, res) => {},
+   actionLogOut: async (req, res) => {
+      req.logout();
+		req.flash("alertMessage", "Logout berhasil!");
+		req.flash("alertStatus", "success");
+		res.redirect("/auth/login");
+   },
 }

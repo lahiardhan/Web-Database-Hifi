@@ -5,8 +5,8 @@ const { viewLogIn, viewSignUp, actionSignUp, actionLogIn, actionLogOut } = requi
 /* GET home page. */
 router.get('/login', viewLogIn);
 router.get('/signup', viewSignUp);
+router.get('/logout', actionLogOut);
 router.post('/login', actionLogIn);
 router.post('/signup', actionSignUp);
-router.post('/logout', actionLogOut);
 
 module.exports = router;

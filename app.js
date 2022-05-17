@@ -6,6 +6,7 @@ const logger = require('morgan');   // bisa diapus gak nih
 const flash  = require('connect-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const passport = require('passport');
 
 // router
 const usersRouter = require('./app/users/router');
@@ -25,7 +26,10 @@ app.use(session({
   cookie: {  }
 }));
 app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(methodOverride('_method'));
+
 app.use(logger('dev'));             // bisa diapus gak nih
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

@@ -1,10 +1,11 @@
-var express = require('express');
+const express = require('express');
+const { ensureAuthenticated } = require('../middleware/auth');
 const { viewDashboard, viewEdit, actionEdit, deleteDashboard } = require('./controller');
-var router = express.Router();
+const router = express.Router();
 
-router.get('/', viewDashboard);
-router.get('/edit/:id', viewEdit);
-router.put('/edit/:id', actionEdit);
-router.delete('/delete/:id', deleteDashboard);
+router.get('/', ensureAuthenticated, viewDashboard);
+router.get('/edit/:id', ensureAuthenticated, viewEdit);
+router.put('/edit/:id', ensureAuthenticated, actionEdit);
+router.delete('/delete/:id', ensureAuthenticated, deleteDashboard);
 
 module.exports = router;

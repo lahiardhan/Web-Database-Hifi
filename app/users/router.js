@@ -1,11 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
 const { index, viewForm, viewProfile, viewForgot } = require('./controller');
+const { ensureAuthenticated } = require('../middleware/auth');
 
-/* GET home page. */
 router.get('/', index);
-router.get('/form', viewForm);
-router.get('/profile', viewProfile);
+router.get('/form', ensureAuthenticated,viewForm);
+router.get('/profile', ensureAuthenticated, viewProfile);
 router.get('/forgot', viewForgot);
 
 module.exports = router;

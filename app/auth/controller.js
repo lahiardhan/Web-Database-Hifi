@@ -16,7 +16,7 @@ module.exports = {
 
    actionLogIn: async (req, res, next) => {
 		passport.authenticate("local", {
-			successRedirect: "/",
+			greenRedirect: "/",
 			failureRedirect: "/auth/login",
 			failureFlash: true,
 		})(req, res, next);
@@ -42,25 +42,25 @@ module.exports = {
          const { username, email, password, password2 } = req.body;
          if(username === "" || undefined) {
             req.flash('unameMessage', 'Username Harus Diisi!');
-            req.flash('alertStatus', 'danger');
+            req.flash('alertStatus', 'red');
             res.redirect('/auth/signup');
          } else if(email === "" || undefined) {
             req.flash('emailMessage', 'Email Harus Diisi!');
-            req.flash('alertStatus', 'danger');
+            req.flash('alertStatus', 'red');
             res.redirect('/auth/signup');
          } else if(password === "" || undefined) {
             req.flash('passMessage', 'Password Harus Diisi!');
-            req.flash('alertStatus', 'danger');
+            req.flash('alertStatus', 'red');
             res.redirect('/auth/signup');
          } else if(password !== password2) {
             req.flash('password2', "Passwords doesn't match");
-            req.flash('alertStatus', 'danger');
+            req.flash('alertStatus', 'red');
             res.redirect('/auth/signup');
          } else {
             User.findOne({ username: username }).then((user) => {
                if(user) {
                   req.flash('alertMessage', 'Username sudah digunakan!');
-                  req.flash('alertStatus', 'danger');
+                  req.flash('alertStatus', 'red');
                   res.redirect('/auth/signup');
                } else {
                   let newUser = new User({
@@ -80,7 +80,7 @@ module.exports = {
                            console.log(value);
                            // delete user._doc.password
                            req.flash('alertMessage', 'Berhasil membuat akun! Silahkan login kembali');
-                           req.flash('alertStatus', 'success')
+                           req.flash('alertStatus', 'green')
                            res.redirect('/auth/login');
                         })
                         .catch(value=> console.log(value));
@@ -91,7 +91,7 @@ module.exports = {
          }
       } catch (err) {
          req.flash('alertMessage', `${err.message}`);
-         req.flash('alertStatus', 'danger');
+         req.flash('alertStatus', 'red');
          res.redirect('/auth/signup');
       }
    },
@@ -99,7 +99,7 @@ module.exports = {
    actionLogOut: async (req, res) => {
       req.logout();
 		req.flash("alertMessage", "Logout berhasil!");
-		req.flash("alertStatus", "success");
+		req.flash("alertStatus", "green");
 		res.redirect("/auth/login");
    },
 }

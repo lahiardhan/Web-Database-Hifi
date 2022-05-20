@@ -88,7 +88,7 @@ module.exports={
             }, { ...payload });
 
             req.flash('updateMessage', 'Data Berhasil Diperbarui!');
-            req.flash('alertStatus', 'success');
+            req.flash('alertStatus', 'green');
             res.redirect('/');
          } else {
             User.findOne({'username': unameBaru}, (err, user) => {
@@ -98,7 +98,7 @@ module.exports={
                else {
                   if (user){
                      req.flash('alertMessage', 'username sudah digunakan, coba username lain!');
-                     req.flash('alertStatus', 'danger');
+                     req.flash('alertStatus', 'red');
                      res.redirect('/profile');
                   }
                   else {
@@ -107,7 +107,7 @@ module.exports={
                      }, { ...payload });
          
                      req.flash('updateMessage', 'Data Berhasil Diperbarui!');
-                     req.flash('alertStatus', 'success');
+                     req.flash('alertStatus', 'green');
                      res.redirect('/');
                   }
                }
@@ -116,7 +116,7 @@ module.exports={
    
       } catch (err) {
          req.flash('alertMessage', `${err.message}`);
-         req.flash('alertStatus', 'danger');
+         req.flash('alertStatus', 'red');
          res.redirect('/'); 
       }
    },
@@ -150,7 +150,7 @@ module.exports={
                      User.findOneAndUpdate({username: username}, {password: updated.password}).then(() => {
                         console.log(user);
                         req.flash('alertMessage','Berhasil merubah password! Silahkan login kembali.');
-                        req.flash('alertStatus', 'success');
+                        req.flash('alertStatus', 'green');
                         res.redirect('/auth/login');
                      })
                   })
@@ -158,18 +158,18 @@ module.exports={
 
             } else {
                req.flash('alertMessage','Email yang dimasukkan salah!');
-               req.flash('alertStatus', 'danger');
+               req.flash('alertStatus', 'red');
                res.redirect('/forgot');
             }
          }
          else{
             req.flash('alertMessage','Username tidak ditemukan!');
-            req.flash('alertStatus', 'danger');
+            req.flash('alertStatus', 'red');
             res.redirect('/forgot');
          }
       } catch (err) {
          req.flash('alertMessage', `${err.message}`);
-         req.flash('alertStatus', 'danger');
+         req.flash('alertStatus', 'red');
          res.redirect('/auth/login');
       }
 	},

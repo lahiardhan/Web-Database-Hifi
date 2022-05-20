@@ -4,7 +4,7 @@ module.exports = {
 			return next();
 		}
 		req.flash("alertMessage", "Silahkan login terlebih dulu.");
-      req.flash('alertStatus', 'danger');
+      req.flash('alertStatus', 'red');
 		res.redirect("/auth/login");
 	},
 };

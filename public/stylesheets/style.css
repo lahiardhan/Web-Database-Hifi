@@ -34,3 +34,14 @@ input::-ms-reveal,
 input::-ms-clear {
   display: none;
 }
+
+#alert-border-3 {
+  opacity: 1;
+  transition: opacity 1s;
+}
+
+#alert-border-3.hide {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 300ms, opacity 300ms;
+}

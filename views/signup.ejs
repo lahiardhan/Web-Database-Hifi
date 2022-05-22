@@ -15,11 +15,11 @@
              </div>
             <%- include ./partials/message.ejs %>
             <form class="flex flex-col pt-3" action="/auth/signup" method="post" autocomplete="off">
-                <div class="flex flex-col pt-4 justify-between">
+                <div class="flex flex-col pt-4 justify-between relative">
                     <label for="username" class="text-lg">
                         Username
-                        <span class="md:text-sm text-red-500 float-right">
-                            <%= unameBlank %> (Isi menggunakan NPM Anda)
+                        <span class="text-xs text-red-500 absolute right-0 top-6">
+                            <%= unameBlank %> (Isi menggunakan NPM)
                         </span>
                     </label>
                     <input 
@@ -31,10 +31,10 @@
                         autocomplete="off"
                     />
                 </div>
-                <div class="flex flex-col pt-4">
+                <div class="flex flex-col pt-4 relative">
                     <label for="email" class="text-lg">
                         Email
-                        <span class="md:text-sm text-red-500 float-right">
+                        <span class="text-xs text-red-500 absolute right-0 top-6">
                             <%= emailBlank %>
                         </span>
                     </label>
@@ -47,10 +47,10 @@
                         autocomplete="off"
                     >
                 </div>
-                <div class="flex flex-col pt-4">
+                <div class="flex flex-col pt-4 relative">
                     <label for="password" class="text-lg">
                         Password
-                        <span class="md:text-sm text-red-500 float-right">
+                        <span class="text-xs text-red-500 absolute right-0 top-6">
                             <%= passBlank %>
                         </span>
                     </label>
@@ -66,10 +66,10 @@
                         <button id="seePassButton" class="px-3" type="button"><i id="seePassIcon" class="fa-solid fa-eye"></i></button>
                     </div>
                 </div>
-                <div class="flex flex-col pt-4">
+                <div class="flex flex-col pt-4 relative">
                     <label for="password" class="text-lg">
                         Confirm Password
-                        <span class="md:text-sm text-red-500 float-right">
+                        <span class="text-xs text-red-500 absolute right-0 top-6">
                             <%= password2 %>
                         </span>
                     </label>

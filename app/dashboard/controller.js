@@ -21,7 +21,7 @@ module.exports = {
          });
       } catch (err) {
          req.flash('alertMessage', `${err.message}`);
-         req.flash('alertStatus', 'red');
+         req.flash('alertStatus', 'danger');
          res.redirect('/dashboard');
       }
    },
@@ -37,7 +37,7 @@ module.exports = {
          })
       } catch (err) {
          req.flash('alertMessage', `${err.message}`);
-         req.flash('alertStatus', 'red');
+         req.flash('alertStatus', 'danger');
          res.redirect('/dashboard');   
       }
    },
@@ -71,12 +71,12 @@ module.exports = {
          }, { ...payload });
 
          req.flash('alertMessage', 'Data User Berhasil Diperbarui!');
-         req.flash('alertStatus', 'green');
+         req.flash('alertStatus', 'success');
 
          res.redirect('/dashboard');
       } catch (err) {
          req.flash('alertMessage', `${err.message}`);
-         req.flash('alertStatus', 'red');
+         req.flash('alertStatus', 'danger');
          res.redirect('/dashboard');   
       }
    },
@@ -89,12 +89,12 @@ module.exports = {
          });
 
          req.flash('alertMessage', 'Data User Berhasil Dihapus!');
-         req.flash('alertStatus', 'green');
+         req.flash('alertStatus', 'success');
 
          res.redirect('/dashboard');      
       } catch (err) {
          req.flash('alertMessage', `${err.message}`);
-         req.flash('alertStatus', 'red');
+         req.flash('alertStatus', 'danger');
          res.redirect('/dashboard');      
       }
    },

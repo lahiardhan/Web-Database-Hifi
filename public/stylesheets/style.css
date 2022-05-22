@@ -45,3 +45,15 @@ input::-ms-clear {
   opacity: 0;
   transition: visibility 0s linear 300ms, opacity 300ms;
 }
+
+@media screen and (max-width: 1024px) {
+  #forgot-background {
+    background-image: url('/img/forgot-bg-small.svg');
+  }
+}
+
+@media screen and (min-width: 1026px) {
+  #forgot-background {
+    background-image: url('/img/forgot-bg.svg');
+  }
+}

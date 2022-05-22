@@ -39,7 +39,7 @@ app.use((req,res,next)=> {
 next();
 })
 
-app.use(logger('dev'));             // bisa diapus gak nih
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());

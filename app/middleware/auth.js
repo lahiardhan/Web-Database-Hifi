@@ -7,4 +7,11 @@ module.exports = {
       req.flash('alertStatus', 'red');
 		res.redirect("/auth/login");
 	},
+	
+	hasLogin: function (req, res, next) {
+		if (!req.isAuthenticated()) {
+			return next();
+		}
+		res.redirect("/");
+	},
 };

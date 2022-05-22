@@ -21,21 +21,6 @@ module.exports={
          console.log(err);
       }
    },
-
-   viewForm: async (req, res) => {
-      try {
-         User.findById(req.user.id, function(err, foundUser){
-            if(err){
-              console.log(err);
-            }
-            else{
-              res.render('form', {user: foundUser});
-            }
-          });
-      } catch (err) {
-         console.log(err);
-      }
-   },
    
    viewProfile: async (req, res) => {
       try {
@@ -54,8 +39,6 @@ module.exports={
          console.log(err);
       }
    },
-
-   actionForm: async(req, res) => {},
 
    actionProfile: async(req, res) => {
       try {

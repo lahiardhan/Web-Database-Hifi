@@ -26,7 +26,7 @@ app.use(session({
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: {  }
+  cookie: { maxAge:86400000 }
 }));
 app.use(flash());
 app.use(passport.initialize());

@@ -15,7 +15,9 @@ module.exports={
          res.render('home', {
             loggedIn: req.isAuthenticated(), 
             user: role, 
-            nama: nama
+            nama: nama,
+            message: req.flash('alertMessage'),
+            status: req.flash('alertStatus')
          });
       } catch (err) {
          console.log(err);
@@ -29,7 +31,7 @@ module.exports={
             res.render('profile', {
                user, 
                message: req.flash('alertMessage'),
-               status: req.flash('alertStatus')
+               status: req.flash('alertStatus'),
             });
          }
          else{

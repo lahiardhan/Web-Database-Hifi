@@ -6,7 +6,7 @@ module.exports = {
 			} else {
 				req.flash("alertMessage", "You're not authorized to access this recourse.");
 				req.flash('alertStatus', 'red');
-				res.redirect("/auth/login");
+				res.redirect("/");
 			}
 		}
 		req.flash("alertMessage", "Silahkan login terlebih dulu.");

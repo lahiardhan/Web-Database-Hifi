@@ -9,8 +9,6 @@ module.exports={
          if(req.isAuthenticated()){
             role = req.user.role;
             nama = req.user.nama;
-            message: req.flash('updateMessage');
-            status: req.flash('alertStatus');
          }
          res.render('home', {
             loggedIn: req.isAuthenticated(), 
@@ -72,7 +70,7 @@ module.exports={
                _id: req.user.id
             }, { ...payload });
 
-            req.flash('updateMessage', 'Data Berhasil Diperbarui!');
+            req.flash('alertMessage', 'Data Berhasil Diperbarui!');
             req.flash('alertStatus', 'green');
             res.redirect('/');
          } else {
@@ -91,7 +89,7 @@ module.exports={
                         _id: req.user.id
                      }, { ...payload });
          
-                     req.flash('updateMessage', 'Data Berhasil Diperbarui!');
+                     req.flash('alertMessage', 'Data Berhasil Diperbarui!');
                      req.flash('alertStatus', 'green');
                      res.redirect('/');
                   }

@@ -9,15 +9,17 @@ module.exports = {
             status: req.flash('alertStatus') 
          }
          const users = await User.find().sort({ 'time': -1});
-         const user = await User.countDocuments();   
+         const user = await User.countDocuments();
+         const admin = await User.find({ role: 'admin' });
 
          res.render('admin/dashboard', {
             nama: req.user.nama,
             users,
+            admin,
             alert,
             count: {
                user
-            }
+            },
          });
       } catch (err) {
          req.flash('alertMessage', `${err.message}`);

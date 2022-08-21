@@ -32,10 +32,12 @@ module.exports = {
       try {
          const { id } = req.params;
          const user = await User.findOne({ _id: id });
+         const admin = await User.find({ role: 'admin' });
 
          res.render('admin/edit', {
             nama: req.user.nama,
             user,
+            admin,
          })
       } catch (err) {
          req.flash('alertMessage', `${err.message}`);

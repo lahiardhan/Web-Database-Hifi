@@ -42,7 +42,11 @@
             <%=users[i].nama%> 
           </td>
           <td style="min-width: 105px; text-align: center;"><%= users[i].username %></td>
-          <td style="min-width: 180px;"><%= users[i].ttl %></td>
+          <td style="min-width: 180px;">
+            <%= users[i].ttl %>,
+            <br>
+            <%= users[i].tgl %>
+          </td>
           <td style="min-width: 80px;"><%= users[i].agama %></td>
           <td style="min-width: 80px; text-align: center;"><%= users[i].goldar %></td>
           <td style="min-width: 100px;"><%= users[i].hp %></td>

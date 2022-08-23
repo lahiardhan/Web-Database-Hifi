@@ -42,10 +42,8 @@ module.exports={
 
    actionProfile: async(req, res) => {
       try {
-         const unameLama = req.user.username;
-         const unameBaru = req.body.username;
          const payload = {
-            username: unameBaru,
+            username: req.body.username,
             password: req.body.password,
             nama: req.body.nama,
             npm: req.body.npm,
@@ -65,37 +63,81 @@ module.exports={
             time: moment(Date()).format("YYYY-MM-Do, H:mm:ss"),
          };
 
-         if(unameBaru === unameLama) {
-            await User.findOneAndUpdate({
-               _id: req.user.id
-            }, { ...payload });
-
-            req.flash('alertMessage', 'Data Berhasil Diperbarui!');
-            req.flash('alertStatus', 'green');
-            res.redirect('/');
-         } else {
-            User.findOne({'username': unameBaru}, (err, user) => {
-               if (err){
-                  console.log(err);
-               }
-               else {
-                  if (user){
+         User.findOne({'username': payload.username}, (err, user) => {
+            if (err) {
+               console.log(err);
+            } else {
+               if(user) {
+                  if(user.id === req.user.id) {
+                     User.findById(req.user.id, function(err, foundUser){
+                        if (err) {
+                          console.log(err);
+                        } else {
+                           if (foundUser) {
+                              foundUser.username = payload.username;
+                              foundUser.nama = payload.nama;
+                              foundUser.npm = payload.npm;
+                              foundUser.ttl = payload.ttl;
+                              foundUser.tgl = payload.tgl;
+                              foundUser.agama = payload.agama;
+                              foundUser.goldar = payload.goldar;
+                              foundUser.hp = payload.hp;
+                              foundUser.email = payload.email;
+                              foundUser.rumah = payload.rumah;
+                              foundUser.kos = payload.kos;
+                              foundUser.pendidikan = payload.pendidikan;
+                              foundUser.panitia = payload.panitia;
+                              foundUser.organisasi = payload.organisasi;
+                              foundUser.pelatihan = payload.pelatihan;
+                              foundUser.prestasi = payload.prestasi;
+                              
+                              foundUser.save(function(){
+                                 req.flash('alertMessage', 'Data Berhasil Diperbarui!');
+                                 req.flash('alertStatus', 'green');
+                                 res.redirect("/");
+                              });
+                           }
+                        }
+                      });
+                  } else {
                      req.flash('alertMessage', 'username sudah digunakan, coba username lain!');
                      req.flash('alertStatus', 'red');
                      res.redirect('/profile');
                   }
-                  else {
-                     User.findOneAndUpdate({
-                        _id: req.user.id
-                     }, { ...payload });
-         
-                     req.flash('alertMessage', 'Data Berhasil Diperbarui!');
-                     req.flash('alertStatus', 'green');
-                     res.redirect('/');
-                  }
+               } else {
+                  User.findById(req.user.id, function(err, foundUser){
+                     if (err) {
+                       console.log(err);
+                     } else {
+                        if (foundUser) {
+                           foundUser.username = payload.username;
+                           foundUser.nama = payload.nama;
+                           foundUser.npm = payload.npm;
+                           foundUser.ttl = payload.ttl;
+                           foundUser.tgl = payload.tgl;
+                           foundUser.agama = payload.agama;
+                           foundUser.goldar = payload.goldar;
+                           foundUser.hp = payload.hp;
+                           foundUser.email = payload.email;
+                           foundUser.rumah = payload.rumah;
+                           foundUser.kos = payload.kos;
+                           foundUser.pendidikan = payload.pendidikan;
+                           foundUser.panitia = payload.panitia;
+                           foundUser.organisasi = payload.organisasi;
+                           foundUser.pelatihan = payload.pelatihan;
+                           foundUser.prestasi = payload.prestasi;
+
+                           foundUser.save(function(){
+                              req.flash('alertMessage', 'Data Berhasil Diperbarui!');
+                              req.flash('alertStatus', 'green');
+                              res.redirect("/");
+                           });
+                        }
+                     }
+                  });
                }
-            });
-         }
+            }
+         })
    
       } catch (err) {
          req.flash('alertMessage', `${err.message}`);

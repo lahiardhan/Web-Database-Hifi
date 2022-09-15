@@ -60,7 +60,7 @@ module.exports={
             organisasi: req.body.organisasi,
             pelatihan: req.body.pelatihan,
             prestasi: req.body.prestasi,
-            time: moment(Date()).format("YYYY-MM-Do, H:mm:ss"),
+            time: moment(Date()).utcOffset('+0700').format("YYYY-MM-Do, H:mm:ss"),
          };
 
          User.findOne({'username': payload.username}, (err, user) => {
@@ -90,7 +90,7 @@ module.exports={
                               foundUser.organisasi = payload.organisasi;
                               foundUser.pelatihan = payload.pelatihan;
                               foundUser.prestasi = payload.prestasi;
-                              foundUser.time = new moment(Date()).format("YYYY-MM-Do, H:mm:ss"),
+                              foundUser.time = new moment(Date()).utcOffset('+0700').format("YYYY-MM-Do, H:mm:ss"),
                               
                               foundUser.save(function(){
                                  req.flash('alertMessage', 'Data Berhasil Diperbarui!');
@@ -127,7 +127,7 @@ module.exports={
                            foundUser.organisasi = payload.organisasi;
                            foundUser.pelatihan = payload.pelatihan;
                            foundUser.prestasi = payload.prestasi;
-                           foundUser.time = new moment(Date()).format("YYYY-MM-Do, H:mm:ss"),
+                           foundUser.time = new moment(Date()).utcOffset('+0700').format("YYYY-MM-Do, H:mm:ss"),
 
                            foundUser.save(function(){
                               req.flash('alertMessage', 'Data Berhasil Diperbarui!');

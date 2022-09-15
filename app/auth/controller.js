@@ -1,6 +1,7 @@
 const User = require('../users/model');
 const bcrypt = require('bcryptjs');
 const passport = require("passport");
+const moment = require('moment');
 
 module.exports = {
    viewLogIn: async (req, res) => {
@@ -66,7 +67,8 @@ module.exports = {
                   let newUser = new User({
                      username : username,
                      email : email,
-                     password : password
+                     password : password,
+                     time: moment(Date()).format("YYYY-MM-Do, H:mm:ss"),
                   });
 
                   // hash password

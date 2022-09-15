@@ -90,6 +90,7 @@ module.exports={
                               foundUser.organisasi = payload.organisasi;
                               foundUser.pelatihan = payload.pelatihan;
                               foundUser.prestasi = payload.prestasi;
+                              foundUser.time = new moment(Date()).format("YYYY-MM-Do, H:mm:ss"),
                               
                               foundUser.save(function(){
                                  req.flash('alertMessage', 'Data Berhasil Diperbarui!');
@@ -126,6 +127,7 @@ module.exports={
                            foundUser.organisasi = payload.organisasi;
                            foundUser.pelatihan = payload.pelatihan;
                            foundUser.prestasi = payload.prestasi;
+                           foundUser.time = new moment(Date()).format("YYYY-MM-Do, H:mm:ss"),
 
                            foundUser.save(function(){
                               req.flash('alertMessage', 'Data Berhasil Diperbarui!');
